@@ -7,37 +7,38 @@ from selenium.webdriver.common.keys import Keys
 import time
 from auth_data import username, password
 import random
-
+from selenium.webdriver.common.by import By
 
 def login(username, password):
     try:
-        browser = webdriver.Chrome('E:\PycharmProjects\\Insta\\01\\chromedriver.exe')
-        browser.get('https://www.instagram.com')
+        driver = webdriver.Chrome('E:\PycharmProjects\\Insta\\01\\chromedriver.exe')
+        driver.get('https://www.instagram.com')
 
 
 
         time.sleep(random.randrange(3, 5))
 
-        username_input = browser.find_element_by_name('username')
-        username_input.clear()
-        username_input.send_keys(username)
+        username_input = driver.find_element(By.NAME, 'username')
+        username_input.clear()             # очистим на всякий случай поле
+        username_input.send_keys(username)     # вводим
 
         time.sleep(2)
 
-        password_input = browser.find_element_by_name('password')
+        password_input = driver.find_element(By.NAME, 'password')
+
         password_input.clear()
         password_input.send_keys(password)
 
         password_input.send_keys(Keys.ENTER)
         time.sleep(10)
 
-        browser.close()
-        browser.quit()
+        driver.close()
+        driver.quit()
 
     except Exception as ex:
         print(ex)
-        browser.close()
-        browser.quit()
+        driver.close()
+        driver.quit()
 
 
 login(username, password)
